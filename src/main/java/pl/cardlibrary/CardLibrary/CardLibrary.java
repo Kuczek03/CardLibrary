@@ -1,13 +1,15 @@
 package pl.cardlibrary.CardLibrary;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class CardLibraryApplication {
+import java.awt.desktop.UserSessionEvent;
 
+@SpringBootApplication
+public class CardLibrary {
 	public static void main(String[] args) {
-		SpringApplication.run(CardLibraryApplication.class, args);
+		SpringApplication.run(CardLibrary.class, args);
 	}
 
 }
