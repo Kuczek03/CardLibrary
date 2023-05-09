@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Card{
+
     private int id;
     private String pokemon;
     private String typ;

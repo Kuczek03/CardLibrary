@@ -23,13 +23,12 @@ public class CardController {
     public List<Card> getAll(){
         return cardRepository.getAll();
     }
-
-    //Karty po numerze id
     @GetMapping("/{id}")
-    public Card getById(@PathVariable("id") int id){
-        return cardRepository.getById(id);
+    public Card getID(@PathVariable("id")int id){
+        return cardRepository.getID(id);
     }
 
+    //Karty po numerze id
     @PostMapping("")
     public int save(@RequestBody List<Card> Cards){
         return cardRepository.save(Cards);
