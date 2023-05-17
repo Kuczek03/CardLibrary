@@ -13,12 +13,12 @@ public class CardRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<Card> getAll() {
-        return jdbcTemplate.query("SELECT * FROM Cards",
+        return jdbcTemplate.query("SELECT * FROM Cards;",
                 BeanPropertyRowMapper.newInstance(Card.class));
     }
 
     public Card getID(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Cards WHERE id=?",
+        return jdbcTemplate.queryForObject("SELECT * FROM Cards WHERE id=?;",
                 BeanPropertyRowMapper.newInstance(Card.class), id);
     }
 
