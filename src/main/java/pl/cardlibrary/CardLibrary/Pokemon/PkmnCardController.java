@@ -23,13 +23,13 @@ public class PkmnCardController {
 
     //Karty po numerze id
     @GetMapping("/{id}")
-    public PkmnCard getID(@PathVariable("id")int id){
-        return pkmnRepo.getID(id);
+    public PkmnCard getID(@PathVariable("id")int idPKMN){
+        return pkmnRepo.getID(idPKMN);
     }
 
 
     @PostMapping("")
-    public int save(@RequestBody List<PkmnCard> Cards){
-        return pkmnRepo.save(Cards);
+    public int save(@RequestBody List<PkmnCard> PKMNs){
+        return pkmnRepo.save(PKMNs);
     }
 }

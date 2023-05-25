@@ -17,13 +17,13 @@ public class PkmnCardRepository {
                 BeanPropertyRowMapper.newInstance(PkmnCard.class));
     }
 
-    public PkmnCard getID(int id) {
+    public PkmnCard getID(int idPKMN) {
         return jdbcTemplate.queryForObject("SELECT * FROM PkmnCards WHERE id=?;",
-                BeanPropertyRowMapper.newInstance(PkmnCard.class), id);
+                BeanPropertyRowMapper.newInstance(PkmnCard.class), idPKMN);
     }
 
-    public int save(@org.jetbrains.annotations.NotNull List<PkmnCard> Cards) {
-        Cards.forEach(PkmnCard -> jdbcTemplate.update("INSERT INTO PkmnCards(pokemon, typ, setName, numberInSet, price) VALUES(?,?,?,?,?)",
+    public int save(@org.jetbrains.annotations.NotNull List<PkmnCard> PKMNs) {
+        PKMNs.forEach(PkmnCard -> jdbcTemplate.update("INSERT INTO PkmnCards(pokemon, typ, setName, numberInSet, price) VALUES(?,?,?,?,?)",
                 PkmnCard.getPokemon(), PkmnCard.getTyp(), PkmnCard.getSetName(), PkmnCard.getNumberInSet(), PkmnCard.getPrice()));
         return 1;
     }
