@@ -27,12 +27,17 @@ public class PkmnCardController {
         return pkmnRepo.getID(id);
     }
 
-    @GetMapping("/set/{idS}")
-    public PkmnCard getSet(@PathVariable("idS")String setId){return pkmnRepo.getSet(setId);}
+    @GetMapping("/set")
+    public List<PkmnCard> getAllSet(){return pkmnRepo.getAllSet();}
 
+    @GetMapping("/set/{setId}")
+    public List<PkmnCard> getSet(@PathVariable("setId")String setId){return pkmnRepo.getSet(setId);}
 
-    @PostMapping("")
-    public int save(@RequestBody List<PkmnCard> PKMNs){
-        return pkmnRepo.save(PKMNs);
+    @PostMapping("/save")
+    public String saveCard(@RequestBody List<PkmnCard> PKMNs){
+        return pkmnRepo.saveCard(PKMNs);
     }
+
+    @PostMapping("/delete")
+    public String delCard(@RequestBody List<PkmnCard> PKMNs){return  pkmnRepo.delCard(PKMNs);}
 }

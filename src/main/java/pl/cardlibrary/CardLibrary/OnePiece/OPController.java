@@ -15,7 +15,7 @@ public class OPController {
 
     @GetMapping("/test")
     public int test(){
-        return 2137;
+        return 1;
     }
 
     @GetMapping("/all")
@@ -28,12 +28,17 @@ public class OPController {
         return opRepo.getID(idOP);
     }
 
-    @GetMapping("/set/{set}")
-    public OPCard getSet(@PathVariable("set") String set){return  opRepo.getSet(set);}
+    @GetMapping("/set")
+    public List<OPCard> getAllSet(){return opRepo.getAllSet();}
 
-    @PostMapping("")
-    public int save(@RequestBody List<OPCard> OPs){
+    @GetMapping("/set/{setId}")
+    public List<OPCard> getSet(@PathVariable("setId") String setId){return opRepo.getSet(setId);}
+
+    @PostMapping("/save")
+    public String saveCard(@RequestBody List<OPCard> OPs){
         return opRepo.save(OPs);
     }
 
+    @PostMapping("/delete")
+    public String delCard(@RequestBody List<OPCard> OPs){return opRepo.delCard(OPs);}
 }

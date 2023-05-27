@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
 
 import java.util.List;
 
@@ -23,10 +24,14 @@ public class TCGRepository {
                 BeanPropertyRowMapper.newInstance(TCG.class), idTCG);
     }
 
-    public int save(@org.jetbrains.annotations.NotNull List<TCG> Cards) {
+    public String saveCard(@org.jetbrains.annotations.NotNull List<TCG> Cards) {
         Cards.forEach(TCG -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?)",
                 TCG.getNameTCG()));
-        return 1;
+        return "Saved";
     }
 
+    public String delCard(@org.jetbrains.annotations.NotNull List<TCG> TCGs) {
+        TCGs.forEach(TCG -> jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?;"));
+        return "Deleted";
+    }
 }

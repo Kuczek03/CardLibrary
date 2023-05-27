@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
+
 
 import java.util.List;
 
@@ -24,15 +24,23 @@ public class OPRepository {
                 BeanPropertyRowMapper.newInstance(OPCard.class), idOP);
     }
 
-    public int save(@org.jetbrains.annotations.NotNull List<OPCard> OPs) {
-        OPs.forEach(OP -> jdbcTemplate.update("INSERT INTO OnePiece(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
-                OP.getName(),OP.getTyp(),OP.getSetId(),OP.getNumbInSet(),OP.getPrice()));
-        return 1;
+    public List<OPCard> getAllSet(){
+        return jdbcTemplate.query("SELECT * FROM OnePieceTCG;",
+                BeanPropertyRowMapper.newInstance(OPCard.class));
     }
-
-    public OPCard getSet(String setId){
-        return jdbcTemplate.queryForObject("SELECT * FROM OnePiece WHERE setId=?;",
+    public List<OPCard> getSet(String setId){
+        return jdbcTemplate.query("SELECT * FROM OnePiece WHERE setId=?;",
                 BeanPropertyRowMapper.newInstance(OPCard.class), setId);
     }
 
+    public String save(@org.jetbrains.annotations.NotNull List<OPCard> OPs) {
+        OPs.forEach(OP -> jdbcTemplate.update("INSERT INTO OnePiece(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+                OP.getName(),OP.getTyp(),OP.getSetId(),OP.getNumbInSet(),OP.getPrice()));
+        return "Saved";
+    }
+
+   public String delCard(@org.jetbrains.annotations.NotNull List<OPCard> OPs){
+        OPs.forEach(OPCard -> jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?;"));
+        return "Deleted";
+    }
 }

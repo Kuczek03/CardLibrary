@@ -13,7 +13,7 @@ public class MagicController {
 
     @GetMapping("/test")
     public int test(){
-        return 2137;
+        return 1;
     }
 
     @GetMapping("/all")
@@ -21,14 +21,21 @@ public class MagicController {
         return mRepo.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public MagicCard getID(@PathVariable("id")int idM){
         return mRepo.getID(idM);
     }
 
-    @PostMapping("")
-    public int save(@RequestBody List<MagicCard> Ms){
-        return mRepo.save(Ms);
+    @GetMapping("/set")
+    public List<MagicCard> getAllSet(){return mRepo.getAllSet();}
+    @GetMapping("/set/{setId}")
+    public List<MagicCard> getSet(@PathVariable("setId")String setId){return mRepo.getSet(setId);}
+
+    @PostMapping("/save")
+    public String saveCard(@RequestBody List<MagicCard> Ms){
+        return mRepo.saveCard(Ms);
     }
 
+    @PostMapping("/delete")
+    public String delCard(@RequestBody List<MagicCard> Ms){return mRepo.delCard(Ms);}
 }

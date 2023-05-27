@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
@@ -23,10 +24,24 @@ public class MagicRepository {
                 BeanPropertyRowMapper.newInstance(MagicCard.class), idM);
     }
 
-    public int save(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
-        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO CardLibrary.Magic(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
-                Magic.getName(),Magic.getTyp(),Magic.getSetId(),Magic.getNumbInSet(),Magic.getPrice()));
-        return 1;
+    public List<MagicCard> getAllSet(){
+        return jdbcTemplate.query("SELECT * FROM MagicTCG;",
+                BeanPropertyRowMapper.newInstance(MagicCard.class));
     }
 
+    public List<MagicCard> getSet(String setId) {
+        return jdbcTemplate.query("SELECT * FROM Magic WHERE setId=?;",
+                BeanPropertyRowMapper.newInstance(MagicCard.class), setId);
+    }
+
+    public String saveCard(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
+        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO CardLibrary.Magic(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+                Magic.getName(),Magic.getTyp(),Magic.getSetId(),Magic.getNumbInSet(),Magic.getPrice()));
+        return "Saved";
+    }
+
+    public String delCard(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
+        Ms.forEach(MagicCard -> jdbcTemplate.update("DELETE FROM Magic WHERE idM=?;"));
+        return "Deleted";
+    }
 }

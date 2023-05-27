@@ -13,7 +13,7 @@ public class TCGController {
 
     @GetMapping("/test")
     public int test(){
-        return 2137;
+        return 1;
     }
 
     @GetMapping("/all")
@@ -26,9 +26,11 @@ public class TCGController {
         return tcgRepo.getID(idTCG);
     }
 
-    @PostMapping("")
-    public int save(@RequestBody List<TCG> TCGs){
-        return tcgRepo.save(TCGs);
+    @PostMapping("/save")
+    public String saveCard(@RequestBody List<TCG> TCGs){
+        return tcgRepo.saveCard(TCGs);
     }
 
+    @PostMapping("/delete")
+    public String delCard(@RequestBody List<TCG> TCGs){return tcgRepo.delCard(TCGs);}
 }

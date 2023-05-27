@@ -2,6 +2,7 @@ package pl.cardlibrary.CardLibrary.YuGiOh;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class YGOController {
 
     @GetMapping("/test")
     public int test(){
-        return 2137;
+        return 1;
     }
 
     @GetMapping("/all")
@@ -21,14 +22,22 @@ public class YGOController {
         return ygoRepo.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public YGOCard getID(@PathVariable("id")int idYGO){
         return ygoRepo.getID(idYGO);
     }
 
-    @PostMapping("")
-    public int save(@RequestBody List<YGOCard> YGOs){
+    @GetMapping("/set")
+    public List<YGOCard> getAllSet(){return ygoRepo.getAllSet();}
+
+    @GetMapping("/set/{setId}")
+    public List<YGOCard> getSet(@PathVariable("setId")String setId){return ygoRepo.getSet(setId);}
+
+    @PostMapping("/save")
+    public String save(@RequestBody List<YGOCard> YGOs){
         return ygoRepo.save(YGOs);
     }
 
+    @PostMapping("/delete")
+    public String delCard(@RequestBody List<YGOCard> YGOs){return ygoRepo.delCard(YGOs);}
 }
