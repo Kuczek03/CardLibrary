@@ -14,18 +14,18 @@ public class MagicRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<MagicCard> getAll() {
-        return jdbcTemplate.query("SELECT * FROM TCG; ",
+        return jdbcTemplate.query("SELECT * FROM CardLibrary.Magic; ",
                 BeanPropertyRowMapper.newInstance(MagicCard.class));
     }
 
     public MagicCard getID(int idM) {
-        return jdbcTemplate.queryForObject("SELECT * FROM TCG WHERE idTCG=?;",
+        return jdbcTemplate.queryForObject("SELECT * FROM CardLibrary.Magic WHERE idM=?;",
                 BeanPropertyRowMapper.newInstance(MagicCard.class), idM);
     }
 
     public int save(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
-        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?)",
-                Magic.getNameTCG()));
+        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO CardLibrary.Magic(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+                Magic.getName(),Magic.getTyp(),Magic.getSetId(),Magic.getNumbInSet(),Magic.getPrice()));
         return 1;
     }
 

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pokemon")
+@RequestMapping("/pkmn")
 public class PkmnCardController {
 
     @Autowired
@@ -16,16 +16,19 @@ public class PkmnCardController {
     }
 
     //Wszystkie karty
-    @GetMapping("")
+    @GetMapping("/all")
     public List<PkmnCard> getAll(){
         return pkmnRepo.getAll();
     }
 
     //Karty po numerze id
-    @GetMapping("/{id}")
-    public PkmnCard getID(@PathVariable("id")int idPKMN){
-        return pkmnRepo.getID(idPKMN);
+    @GetMapping("/id/{id}")
+    public PkmnCard getID(@PathVariable("id")int id){
+        return pkmnRepo.getID(id);
     }
+
+    @GetMapping("/set/{idS}")
+    public PkmnCard getSet(@PathVariable("idS")String setId){return pkmnRepo.getSet(setId);}
 
 
     @PostMapping("")

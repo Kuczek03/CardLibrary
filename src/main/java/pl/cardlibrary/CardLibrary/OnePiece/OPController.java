@@ -23,10 +23,13 @@ public class OPController {
         return opRepo.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public OPCard getID(@PathVariable("id")int idOP){
         return opRepo.getID(idOP);
     }
+
+    @GetMapping("/set/{set}")
+    public OPCard getSet(@PathVariable("set") String set){return  opRepo.getSet(set);}
 
     @PostMapping("")
     public int save(@RequestBody List<OPCard> OPs){

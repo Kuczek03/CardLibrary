@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 public class MagicCard {
 
     private int idM;
-    private String nameTCG;
+    private String name;
+    private String typ;
+    private String setId;
+    private String numbInSet;
+    private double price;
 
 }

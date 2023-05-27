@@ -14,18 +14,18 @@ public class YGORepository {
     JdbcTemplate jdbcTemplate;
 
     public List<YGOCard> getAll() {
-        return jdbcTemplate.query("SELECT * FROM TCG; ",
+        return jdbcTemplate.query("SELECT * FROM YuGiOh; ",
                 BeanPropertyRowMapper.newInstance(YGOCard.class));
     }
 
     public YGOCard getID(int idYGO) {
-        return jdbcTemplate.queryForObject("SELECT * FROM TCG WHERE idTCG=?;",
+        return jdbcTemplate.queryForObject("SELECT * FROM YuGiOh WHERE idYGO=?;",
                 BeanPropertyRowMapper.newInstance(YGOCard.class), idYGO);
     }
 
     public int save(@org.jetbrains.annotations.NotNull List<YGOCard> YGOs) {
-        YGOs.forEach(YGO -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?)",
-                YGO.getNameTCG()));
+        YGOs.forEach(YGO -> jdbcTemplate.update("INSERT INTO YuGiOh(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+                YGO.getName(),YGO.getTyp(),YGO.getNumbInSet(),YGO.getPrice()));
         return 1;
     }
 

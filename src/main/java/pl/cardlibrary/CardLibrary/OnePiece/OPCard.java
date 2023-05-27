@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OPCard {
 
-    private int idTCG;
-    private String nameTCG;
+    private int idOP;
+    private String name;
+    private String typ;
+    private String setId;
+    private String numbInSet;
+    private double price;
 
 }

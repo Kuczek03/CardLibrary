@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PkmnCard{
 
-    private int idPKMN;
-    private String pokemon;
+    private int id;
+    private String name;
     private String typ;
-    private String setName;
-    private String numberInSet;
+    private String setId;
+    private String numbInSet;
     private double price;
 
 }
