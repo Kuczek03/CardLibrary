@@ -23,8 +23,8 @@ public class YGOController {
     }
 
     @GetMapping("/id/{id}")
-    public YGOCard getID(@PathVariable("id")int idYGO){
-        return ygoRepo.getID(idYGO);
+    public YGOCard getID(@PathVariable("id")int id){
+        return ygoRepo.getID(id);
     }
 
     @GetMapping("/set")
@@ -38,6 +38,8 @@ public class YGOController {
         return ygoRepo.save(YGOs);
     }
 
-    @PostMapping("/delete")
-    public String delCard(@RequestBody List<YGOCard> YGOs){return ygoRepo.delCard(YGOs);}
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable("id") int id){
+        return ygoRepo.delete(id);
+    }
 }

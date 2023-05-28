@@ -31,6 +31,8 @@ public class TCGController {
         return tcgRepo.saveCard(TCGs);
     }
 
-    @PostMapping("/delete")
-    public String delCard(@RequestBody List<TCG> TCGs){return tcgRepo.delCard(TCGs);}
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable("id") int id){
+        return tcgRepo.delete(id);
+    }
 }

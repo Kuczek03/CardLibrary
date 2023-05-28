@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MagicCard {
 
-    private int idM;
+    private int id;
     private String name;
     private String typ;
     private String setId;

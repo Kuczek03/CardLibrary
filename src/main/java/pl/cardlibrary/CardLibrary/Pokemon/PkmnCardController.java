@@ -38,6 +38,8 @@ public class PkmnCardController {
         return pkmnRepo.saveCard(PKMNs);
     }
 
-    @PostMapping("/delete")
-    public String delCard(@RequestBody List<PkmnCard> PKMNs){return  pkmnRepo.delCard(PKMNs);}
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable("id") int id){
+        return pkmnRepo.delete(id);
+    }
 }

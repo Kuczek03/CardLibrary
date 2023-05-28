@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class YGOCard {
 
-    private int idYGO;
+    private int id;
     private String name;
     private String typ;
     private String setId;

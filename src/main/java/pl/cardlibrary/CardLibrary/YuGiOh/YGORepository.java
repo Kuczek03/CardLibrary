@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
+
 
 
 import java.util.List;
@@ -20,9 +20,9 @@ public class YGORepository {
                 BeanPropertyRowMapper.newInstance(YGOCard.class));
     }
 
-    public YGOCard getID(int idYGO) {
-        return jdbcTemplate.queryForObject("SELECT * FROM YuGiOh WHERE idYGO=?;",
-                BeanPropertyRowMapper.newInstance(YGOCard.class), idYGO);
+    public YGOCard getID(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM YuGiOh WHERE id=?;",
+                BeanPropertyRowMapper.newInstance(YGOCard.class), id);
     }
 
     public List<YGOCard> getSet(String setId){
@@ -41,8 +41,8 @@ public class YGORepository {
         return "Saved";
     }
 
-    public String delCard(@org.jetbrains.annotations.NotNull List<YGOCard> YGOs) {
-        YGOs.forEach(YGOCard -> jdbcTemplate.update("DELETE FROM YuGiOh WHERE id=?;"));
-        return "Deleted";
+    public int delete(int id){
+        jdbcTemplate.update("DELETE FROM YuGiOh WHERE id=?" ,id);
+        return 1;
     }
 }

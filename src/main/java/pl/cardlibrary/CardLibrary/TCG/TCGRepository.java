@@ -30,8 +30,8 @@ public class TCGRepository {
         return "Saved";
     }
 
-    public String delCard(@org.jetbrains.annotations.NotNull List<TCG> TCGs) {
-        TCGs.forEach(TCG -> jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?;"));
-        return "Deleted";
+    public int delete(int id){
+        jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?" ,id);
+        return 1;
     }
 }

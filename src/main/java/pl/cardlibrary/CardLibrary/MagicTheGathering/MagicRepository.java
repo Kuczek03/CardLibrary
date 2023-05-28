@@ -19,9 +19,9 @@ public class MagicRepository {
                 BeanPropertyRowMapper.newInstance(MagicCard.class));
     }
 
-    public MagicCard getID(int idM) {
-        return jdbcTemplate.queryForObject("SELECT * FROM CardLibrary.Magic WHERE idM=?;",
-                BeanPropertyRowMapper.newInstance(MagicCard.class), idM);
+    public MagicCard getID(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM CardLibrary.Magic WHERE id=?;",
+                BeanPropertyRowMapper.newInstance(MagicCard.class), id);
     }
 
     public List<MagicCard> getAllSet(){
@@ -40,8 +40,8 @@ public class MagicRepository {
         return "Saved";
     }
 
-    public String delCard(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
-        Ms.forEach(MagicCard -> jdbcTemplate.update("DELETE FROM Magic WHERE idM=?;"));
-        return "Deleted";
+    public int delete(int id){
+        jdbcTemplate.update("DELETE FROM Magic WHERE id=?" ,id);
+        return 1;
     }
 }

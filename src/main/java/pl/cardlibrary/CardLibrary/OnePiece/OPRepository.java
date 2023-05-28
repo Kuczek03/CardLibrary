@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
+
 import java.util.List;
 
 @Repository
@@ -19,9 +20,9 @@ public class OPRepository {
                 BeanPropertyRowMapper.newInstance(OPCard.class));
     }
 
-    public OPCard getID(int idOP) {
-        return jdbcTemplate.queryForObject("SELECT * FROM OnePiece WHERE idOP=?;",
-                BeanPropertyRowMapper.newInstance(OPCard.class), idOP);
+    public OPCard getID(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM OnePiece WHERE id=?;",
+                BeanPropertyRowMapper.newInstance(OPCard.class), id);
     }
 
     public List<OPCard> getAllSet(){
@@ -39,8 +40,8 @@ public class OPRepository {
         return "Saved";
     }
 
-   public String delCard(@org.jetbrains.annotations.NotNull List<OPCard> OPs){
-        OPs.forEach(OPCard -> jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?;"));
-        return "Deleted";
-    }
+     public int delete(int id){
+         jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?" ,id);
+         return 1;
+     }
 }

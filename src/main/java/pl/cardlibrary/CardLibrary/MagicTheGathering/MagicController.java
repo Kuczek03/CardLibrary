@@ -22,8 +22,8 @@ public class MagicController {
     }
 
     @GetMapping("/id/{id}")
-    public MagicCard getID(@PathVariable("id")int idM){
-        return mRepo.getID(idM);
+    public MagicCard getID(@PathVariable("id")int id){
+        return mRepo.getID(id);
     }
 
     @GetMapping("/set")
@@ -36,6 +36,8 @@ public class MagicController {
         return mRepo.saveCard(Ms);
     }
 
-    @PostMapping("/delete")
-    public String delCard(@RequestBody List<MagicCard> Ms){return mRepo.delCard(Ms);}
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable("id") int id){
+        return mRepo.delete(id);
+    }
 }

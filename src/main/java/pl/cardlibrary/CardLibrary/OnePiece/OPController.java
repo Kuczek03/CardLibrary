@@ -1,16 +1,17 @@
 package pl.cardlibrary.CardLibrary.OnePiece;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
-import pl.cardlibrary.CardLibrary.TCG.TCG;
-import pl.cardlibrary.CardLibrary.TCG.TCGRepository;
+
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/op")
 public class OPController {
-    @Autowired
+    //@Autowired
     OPRepository opRepo;
 
     @GetMapping("/test")
@@ -24,12 +25,14 @@ public class OPController {
     }
 
     @GetMapping("/id/{id}")
-    public OPCard getID(@PathVariable("id")int idOP){
-        return opRepo.getID(idOP);
+    public OPCard getID(@PathVariable("id")int id){
+        return opRepo.getID(id);
     }
 
     @GetMapping("/set")
     public List<OPCard> getAllSet(){return opRepo.getAllSet();}
+
+
 
     @GetMapping("/set/{setId}")
     public List<OPCard> getSet(@PathVariable("setId") String setId){return opRepo.getSet(setId);}
@@ -39,6 +42,9 @@ public class OPController {
         return opRepo.save(OPs);
     }
 
-    @PostMapping("/delete")
-    public String delCard(@RequestBody List<OPCard> OPs){return opRepo.delCard(OPs);}
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable("id") int id){
+        return opRepo.delete(id);
+    }
+
 }

@@ -40,9 +40,9 @@ public class PkmnCardRepository {
         return "Saved";
     }
 
-   public String delCard(@org.jetbrains.annotations.NotNull List<PkmnCard> PKMNs) {
-       PKMNs.forEach(PkmnCard -> jdbcTemplate.update("DELETE FROM Pkmn WHERE id=?;"));
-       return "Deleted";
-   }
+    public int delete(int id){
+        jdbcTemplate.update("DELETE FROM Pkmn WHERE id=?" ,id);
+        return 1;
+    }
 
 }
