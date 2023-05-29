@@ -24,18 +24,18 @@ public class TCGRepository {
                 BeanPropertyRowMapper.newInstance(TCG.class), idTCG);
     }
 
-    public String saveCard(@org.jetbrains.annotations.NotNull List<TCG> Cards) {
+    public String saveGame(@org.jetbrains.annotations.NotNull List<TCG> Cards) {
         Cards.forEach(TCG -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?);",
                 TCG.getNameTCG()));
         return "Saved";
     }
 
-    public int deleteCard(int id){
+    public String deleteGame(int id){
         jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?;" ,id);
-        return 1;
+        return "Deleted";
     }
 
-    public int updateCard(@NotNull TCG tcg){
+    public int updateGame(@NotNull TCG tcg){
         return jdbcTemplate.update("UPDATE TCG SET nameTCG=? WHERE idTCG=?;",
                 tcg.getNameTCG(),tcg.getIdTCG());
     }

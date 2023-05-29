@@ -25,11 +25,6 @@ public class MagicRepository {
                 BeanPropertyRowMapper.newInstance(MagicCard.class), id);
     }
 
-    public List<MagicCard> getAllSet(){
-        return jdbcTemplate.query("SELECT * FROM MagicTCG;",
-                BeanPropertyRowMapper.newInstance(MagicCard.class));
-    }
-
     public List<MagicCard> getSet(String setId) {
         return jdbcTemplate.query("SELECT * FROM Magic WHERE setId=?;",
                 BeanPropertyRowMapper.newInstance(MagicCard.class), setId);
@@ -41,9 +36,9 @@ public class MagicRepository {
         return "Saved";
     }
 
-    public int deleteCard(int id){
+    public String deleteCard(int id){
         jdbcTemplate.update("DELETE FROM Magic WHERE id=?;" ,id);
-        return 1;
+        return "Deleted";
     }
 
     public int updateCard(@NotNull MagicCard m){

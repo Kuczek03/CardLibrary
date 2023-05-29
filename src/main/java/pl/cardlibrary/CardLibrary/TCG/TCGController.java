@@ -28,26 +28,26 @@ public class TCGController {
 
     @PostMapping("/save")
     public String saveCard(@RequestBody List<TCG> TCGs){
-        return tcgRepo.saveCard(TCGs);
+        return tcgRepo.saveGame(TCGs);
     }
 
     @DeleteMapping("/delete/{id}")
-    public int deleteCard(@PathVariable("id") int id){
-        return tcgRepo.deleteCard(id);
+    public String deleteCard(@PathVariable("id") int id){
+        return tcgRepo.deleteGame(id);
     }
 
-    @PutMapping("/up{id}")
-    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
+    @PutMapping("/up/{id}")
+    public String updateCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
         TCG tcg = tcgRepo.getID(id);
         tcg.setNameTCG(updatedCard.getNameTCG());
-        tcgRepo.updateCard(tcg);
-        return  1;
+        tcgRepo.updateGame(tcg);
+        return "Put";
     }
     @PutMapping("/pup/{id}")
-    public int pariatllyCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
+    public String pariatllyCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
         TCG tcg = tcgRepo.getID(id);
         if(updatedCard.getNameTCG()!=null) tcg.setNameTCG(updatedCard.getNameTCG());
-        tcgRepo.updateCard(tcg);
-        return  1;
+        tcgRepo.updateGame(tcg);
+        return "Patched";
     }
 }

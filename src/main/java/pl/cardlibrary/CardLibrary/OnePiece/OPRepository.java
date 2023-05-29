@@ -23,10 +23,6 @@ public class OPRepository {
                 BeanPropertyRowMapper.newInstance(OPCard.class), id);
     }
 
-    public List<OPCard> getAllSet(){
-        return jdbcTemplate.query("SELECT * FROM OnePieceTCG;",
-                BeanPropertyRowMapper.newInstance(OPCard.class));
-    }
     public List<OPCard> getSet(String setId){
         return jdbcTemplate.query("SELECT * FROM OnePiece WHERE setId=?;",
                 BeanPropertyRowMapper.newInstance(OPCard.class), setId);
@@ -38,9 +34,9 @@ public class OPRepository {
         return "Saved";
     }
 
-     public int deleteCard(int id){
+     public String deleteCard(int id){
          jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?;" ,id);
-         return 1;
+         return "Deleted";
      }
 
     public int updateCard(@NotNull OPCard op){

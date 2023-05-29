@@ -24,11 +24,6 @@ public class PkmnCardRepository {
                 BeanPropertyRowMapper.newInstance(PkmnCard.class), id);
     }
 
-    public List<PkmnCard> getAllSet(){
-        return jdbcTemplate.query("SELECT * FROM PkmnTCG;",
-                BeanPropertyRowMapper.newInstance(PkmnCard.class));
-    }
-
     public List<PkmnCard> getSet(String setId) {
         return jdbcTemplate.query("SELECT * FROM Pkmn WHERE setId=?;",
                 BeanPropertyRowMapper.newInstance(PkmnCard.class), setId);
@@ -40,9 +35,9 @@ public class PkmnCardRepository {
         return "Saved";
     }
 
-    public int deleteCard(int id){
+    public String deleteCard(int id){
         jdbcTemplate.update("DELETE FROM Pkmn WHERE id=?;" ,id);
-        return 1;
+        return "Deleted";
     }
 
     public int updateCard(@NotNull PkmnCard pkmn){

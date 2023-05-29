@@ -26,8 +26,6 @@ public class MagicController {
         return mRepo.getID(id);
     }
 
-    @GetMapping("/set")
-    public List<MagicCard> getAllSet(){return mRepo.getAllSet();}
     @GetMapping("/set/{setId}")
     public List<MagicCard> getSet(@PathVariable("setId")String setId){return mRepo.getSet(setId);}
 
@@ -37,12 +35,12 @@ public class MagicController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id){
         return mRepo.deleteCard(id);
     }
 
     @PutMapping("/up/{id}")
-    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
+    public String updateCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
         MagicCard m = mRepo.getID(id);
         m.setName(updatedCard.getName());
         m.setTyp(updatedCard.getTyp());
@@ -50,11 +48,11 @@ public class MagicController {
         m.setNumbInSet(updatedCard.getNumbInSet());
         m.setPrice(updatedCard.getPrice());
         mRepo.updateCard(m);
-        return  1;
+        return "Put";
     }
 
     @PatchMapping("/pup/{id}")
-    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
+    public String partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
         MagicCard m = mRepo.getID(id);
         if(updatedCard.getName()!= null) m.setName(updatedCard.getName());
         if(updatedCard.getTyp()!= null) m.setTyp(updatedCard.getTyp());
@@ -62,6 +60,6 @@ public class MagicController {
         if(updatedCard.getNumbInSet()!= null) m.setNumbInSet(updatedCard.getNumbInSet());
         if(updatedCard.getPrice()!= 0) m.setPrice(updatedCard.getPrice());
         mRepo.updateCard(m);
-        return  1;
+        return "Patched";
     }
 }

@@ -27,9 +27,6 @@ public class OPController {
         return opRepo.getID(id);
     }
 
-    @GetMapping("/set")
-    public List<OPCard> getAllSet(){return opRepo.getAllSet();}
-
     @GetMapping("/set/{setId}")
     public List<OPCard> getSet(@PathVariable("setId") String setId){return opRepo.getSet(setId);}
 
@@ -39,12 +36,12 @@ public class OPController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public int deleteCard(@PathVariable("id") int id){
+    public String deleteCard(@PathVariable("id") int id){
         return opRepo.deleteCard(id);
     }
 
     @PutMapping("/up/{id}")
-    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
+    public String updateCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
         OPCard op = opRepo.getID(id);
             op.setName(updatedCard.getName());
             op.setTyp(updatedCard.getTyp());
@@ -52,11 +49,11 @@ public class OPController {
             op.setNumbInSet(updatedCard.getNumbInSet());
             op.setPrice(updatedCard.getPrice());
             opRepo.updateCard(op);
-            return 1;
+            return "Put";
     }
 
     @PatchMapping("/pup/{id}")
-    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
+    public String partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
         OPCard op = opRepo.getID(id);
         if(updatedCard.getName()!= null) op.setName(updatedCard.getName());
         if(updatedCard.getTyp()!= null) op.setTyp(updatedCard.getTyp());
@@ -64,6 +61,6 @@ public class OPController {
         if(updatedCard.getNumbInSet()!= null) op.setNumbInSet(updatedCard.getNumbInSet());
         if(updatedCard.getPrice()!= 0) op.setPrice(updatedCard.getPrice());
         opRepo.updateCard(op);
-        return  1;
+        return "Patched";
     }
 }

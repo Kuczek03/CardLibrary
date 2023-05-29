@@ -31,20 +31,15 @@ public class YGORepository {
                 BeanPropertyRowMapper.newInstance(YGOCard.class), setId);
     }
 
-    public List<YGOCard> getAllSet(){
-        return jdbcTemplate.query("SELECT * FROM YuGiOhTCG;",
-                BeanPropertyRowMapper.newInstance(YGOCard.class));
-    }
-
     public String saveCard(@org.jetbrains.annotations.NotNull List<YGOCard> YGOs) {
         YGOs.forEach(YGO -> jdbcTemplate.update("INSERT INTO YuGiOh(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?);",
                 YGO.getName(),YGO.getTyp(),YGO.getNumbInSet(),YGO.getPrice()));
         return "Saved";
     }
 
-    public int deleteCard(int id){
+    public String deleteCard(int id){
         jdbcTemplate.update("DELETE FROM YuGiOh WHERE id=?;" ,id);
-        return 1;
+        return "Deleted";
     }
 
     public int updateCard(@NotNull YGOCard ygo){

@@ -28,9 +28,6 @@ public class PkmnCardController {
         return pkmnRepo.getID(id);
     }
 
-    @GetMapping("/set")
-    public List<PkmnCard> getAllSet(){return pkmnRepo.getAllSet();}
-
     @GetMapping("/set/{setId}")
     public List<PkmnCard> getSet(@PathVariable("setId")String setId){return pkmnRepo.getSet(setId);}
 
@@ -40,11 +37,11 @@ public class PkmnCardController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public int deleteCard(@PathVariable("id") int id){
+    public String deleteCard(@PathVariable("id") int id){
         return pkmnRepo.deleteCard(id);
     }
     @PutMapping("/up/{id}")
-    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
+    public String updateCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
         PkmnCard pkmn = pkmnRepo.getID(id);
         pkmn.setName(updatedCard.getName());
         pkmn.setTyp(updatedCard.getTyp());
@@ -52,11 +49,11 @@ public class PkmnCardController {
         pkmn.setNumbInSet(updatedCard.getNumbInSet());
         pkmn.setPrice(updatedCard.getPrice());
         pkmnRepo.updateCard(pkmn);
-        return  1;
+        return "Put";
     }
 
     @PatchMapping("/pup/{id}")
-    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
+    public String partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
         PkmnCard pkmn = pkmnRepo.getID(id);
         if(updatedCard.getName()!= null) pkmn.setName(updatedCard.getName());
         if(updatedCard.getTyp()!= null) pkmn.setTyp(updatedCard.getTyp());
@@ -64,6 +61,6 @@ public class PkmnCardController {
         if(updatedCard.getNumbInSet()!= null) pkmn.setNumbInSet(updatedCard.getNumbInSet());
         if(updatedCard.getPrice()!= 0) pkmn.setPrice(updatedCard.getPrice());
         pkmnRepo.updateCard(pkmn);
-        return  1;
+        return "Patched";
     }
 }
