@@ -41,7 +41,7 @@ public class YGOController {
     public int deleteCard(@PathVariable("id") int id){
         return ygoRepo.deleteCard(id);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/up/{id}")
     public int updateCard(@PathVariable("id") int id, @RequestBody YGOCard updatedCard){
         YGOCard ygo = ygoRepo.getID(id);
         ygo.setName(updatedCard.getName());
@@ -53,7 +53,7 @@ public class YGOController {
         return  1;
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/pup/{id}")
     public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull YGOCard updatedCard){
         YGOCard ygo = ygoRepo.getID(id);
         if(updatedCard.getName()!= null) ygo.setName(updatedCard.getName());

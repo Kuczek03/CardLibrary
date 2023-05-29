@@ -1,4 +1,4 @@
-package pl.cardlibrary.CardLibrary.MagicTheGathering;
+package pl.cardlibrary.CardLibrary.Magic;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class MagicController {
         return mRepo.deleteCard(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/up/{id}")
     public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
         MagicCard m = mRepo.getID(id);
         m.setName(updatedCard.getName());
@@ -53,7 +53,7 @@ public class MagicController {
         return  1;
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/pup/{id}")
     public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull MagicCard updatedCard){
         MagicCard m = mRepo.getID(id);
         if(updatedCard.getName()!= null) m.setName(updatedCard.getName());

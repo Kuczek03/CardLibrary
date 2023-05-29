@@ -41,13 +41,13 @@ public class PkmnCardRepository {
     }
 
     public int deleteCard(int id){
-        jdbcTemplate.update("DELETE FROM Pkmn WHERE id=?" ,id);
+        jdbcTemplate.update("DELETE FROM Pkmn WHERE id=?;" ,id);
         return 1;
     }
 
     public int updateCard(@NotNull PkmnCard pkmn){
-        return jdbcTemplate.update("UPDATE Pkmn SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?",
-                pkmn.getId(),pkmn.getName(),pkmn.getTyp(),pkmn.getSetId(),pkmn.getNumbInSet(),pkmn.getPrice());
+        return jdbcTemplate.update("UPDATE Pkmn SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
+                pkmn.getName(),pkmn.getTyp(),pkmn.getSetId(),pkmn.getNumbInSet(),pkmn.getPrice(),pkmn.getId());
     }
 
 }

@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-
-
 import java.util.List;
 
 @Repository
@@ -48,6 +45,6 @@ public class OPRepository {
 
     public int updateCard(@NotNull OPCard op){
         return jdbcTemplate.update("UPDATE OnePiece SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
-                op.getId(),op.getName(),op.getTyp(),op.getSetId(),op.getNumbInSet(),op.getPrice());
+                op.getName(),op.getTyp(),op.getSetId(),op.getNumbInSet(),op.getPrice(),op.getId());
     }
 }

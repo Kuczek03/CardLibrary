@@ -1,4 +1,4 @@
-package pl.cardlibrary.CardLibrary.MagicTheGathering;
+package pl.cardlibrary.CardLibrary.Magic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

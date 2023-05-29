@@ -43,7 +43,7 @@ public class PkmnCardController {
     public int deleteCard(@PathVariable("id") int id){
         return pkmnRepo.deleteCard(id);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/up/{id}")
     public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
         PkmnCard pkmn = pkmnRepo.getID(id);
         pkmn.setName(updatedCard.getName());
@@ -55,7 +55,7 @@ public class PkmnCardController {
         return  1;
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/pup/{id}")
     public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
         PkmnCard pkmn = pkmnRepo.getID(id);
         if(updatedCard.getName()!= null) pkmn.setName(updatedCard.getName());

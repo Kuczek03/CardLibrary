@@ -48,7 +48,7 @@ public class YGORepository {
     }
 
     public int updateCard(@NotNull YGOCard ygo){
-        return jdbcTemplate.update("UPDATE YuGiOh SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?",
-                ygo.getId(),ygo.getName(),ygo.getTyp(),ygo.getSetId(),ygo.getNumbInSet(),ygo.getPrice());
+        return jdbcTemplate.update("UPDATE YuGiOh SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
+                ygo.getName(),ygo.getTyp(),ygo.getSetId(),ygo.getNumbInSet(),ygo.getPrice(),ygo.getId());
     }
 }

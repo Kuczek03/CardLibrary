@@ -1,4 +1,4 @@
-package pl.cardlibrary.CardLibrary.MagicTheGathering;
+package pl.cardlibrary.CardLibrary.Magic;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +48,6 @@ public class MagicRepository {
 
     public int updateCard(@NotNull MagicCard m){
         return jdbcTemplate.update("UPDATE Magic SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
-                m.getId(),m.getName(),m.getTyp(),m.getSetId(),m.getNumbInSet(),m.getPrice());
+                m.getName(),m.getTyp(),m.getSetId(),m.getNumbInSet(),m.getPrice(),m.getId());
     }
 }

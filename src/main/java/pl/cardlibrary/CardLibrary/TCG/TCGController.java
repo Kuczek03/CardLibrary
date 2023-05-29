@@ -36,14 +36,14 @@ public class TCGController {
         return tcgRepo.deleteCard(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/up{id}")
     public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
         TCG tcg = tcgRepo.getID(id);
         tcg.setNameTCG(updatedCard.getNameTCG());
         tcgRepo.updateCard(tcg);
         return  1;
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/pup/{id}")
     public int pariatllyCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
         TCG tcg = tcgRepo.getID(id);
         if(updatedCard.getNameTCG()!=null) tcg.setNameTCG(updatedCard.getNameTCG());

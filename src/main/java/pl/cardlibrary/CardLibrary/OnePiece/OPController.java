@@ -2,13 +2,14 @@ package pl.cardlibrary.CardLibrary.OnePiece;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/op")
 public class OPController {
-    //@Autowired
+    @Autowired
     OPRepository opRepo;
 
     @GetMapping("/test")
@@ -29,8 +30,6 @@ public class OPController {
     @GetMapping("/set")
     public List<OPCard> getAllSet(){return opRepo.getAllSet();}
 
-
-
     @GetMapping("/set/{setId}")
     public List<OPCard> getSet(@PathVariable("setId") String setId){return opRepo.getSet(setId);}
 
@@ -44,19 +43,19 @@ public class OPController {
         return opRepo.deleteCard(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/up/{id}")
     public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
         OPCard op = opRepo.getID(id);
-        op.setName(updatedCard.getName());
-        op.setTyp(updatedCard.getTyp());
-        op.setSetId(updatedCard.getSetId());
-        op.setNumbInSet(updatedCard.getNumbInSet());
-        op.setPrice(updatedCard.getPrice());
-        opRepo.updateCard(op);
-        return  1;
+            op.setName(updatedCard.getName());
+            op.setTyp(updatedCard.getTyp());
+            op.setSetId(updatedCard.getSetId());
+            op.setNumbInSet(updatedCard.getNumbInSet());
+            op.setPrice(updatedCard.getPrice());
+            opRepo.updateCard(op);
+            return 1;
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/pup/{id}")
     public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
         OPCard op = opRepo.getID(id);
         if(updatedCard.getName()!= null) op.setName(updatedCard.getName());
