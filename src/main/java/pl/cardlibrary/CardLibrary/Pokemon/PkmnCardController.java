@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pkmn")
+@RequestMapping("/pokemon")
 public class PkmnCardController {
 
     @Autowired

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/op")
+@RequestMapping("/onepiece")
 public class OPController {
     @Autowired
     OPRepository opRepo;

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ygo")
+@RequestMapping("/yugioh")
 public class YGOController {
     @Autowired
     YGORepository ygoRepo;
