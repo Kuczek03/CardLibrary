@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <object-set>
+    <table path="CardLibrary.Pkmn">
+      <table path="CardLibrary.TCG" name="virtual_foreign_key_name" from="game" to="nameTCG"/>
+    </table>
+    <table path="CardLibrary.OnePiece">
+      <table path="CardLibrary.TCG" name="virtual_foreign_key_name" from="game" to="nameTCG"/>
+    </table>
+    <table path="CardLibrary.YuGiOh">
+      <table path="CardLibrary.TCG" name="virtual_foreign_key_name" from="game" to="nameTCG"/>
+    </table>
+    <table path="CardLibrary.Magic">
+      <table path="CardLibrary.TCG" name="virtual_foreign_key_name" from="game" to="nameTCG"/>
+    </table>
+  </object-set>
+</data>
