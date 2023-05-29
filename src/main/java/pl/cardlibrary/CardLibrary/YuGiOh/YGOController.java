@@ -1,9 +1,8 @@
 package pl.cardlibrary.CardLibrary.YuGiOh;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
-
 import java.util.List;
 
 @RestController
@@ -34,12 +33,35 @@ public class YGOController {
     public List<YGOCard> getSet(@PathVariable("setId")String setId){return ygoRepo.getSet(setId);}
 
     @PostMapping("/save")
-    public String save(@RequestBody List<YGOCard> YGOs){
-        return ygoRepo.save(YGOs);
+    public String saveCard(@RequestBody List<YGOCard> YGOs){
+        return ygoRepo.saveCard(YGOs);
     }
 
     @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable("id") int id){
-        return ygoRepo.delete(id);
+    public int deleteCard(@PathVariable("id") int id){
+        return ygoRepo.deleteCard(id);
+    }
+    @PutMapping("/update/{id}")
+    public int updateCard(@PathVariable("id") int id, @RequestBody YGOCard updatedCard){
+        YGOCard ygo = ygoRepo.getID(id);
+        ygo.setName(updatedCard.getName());
+        ygo.setTyp(updatedCard.getTyp());
+        ygo.setSetId(updatedCard.getSetId());
+        ygo.setNumbInSet(updatedCard.getNumbInSet());
+        ygo.setPrice(updatedCard.getPrice());
+        ygoRepo.updateCard(ygo);
+        return  1;
+    }
+
+    @PatchMapping("/update/{id}")
+    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull YGOCard updatedCard){
+        YGOCard ygo = ygoRepo.getID(id);
+        if(updatedCard.getName()!= null) ygo.setName(updatedCard.getName());
+        if(updatedCard.getTyp()!= null) ygo.setTyp(updatedCard.getTyp());
+        if(updatedCard.getSetId()!= null) ygo.setSetId(updatedCard.getSetId());
+        if(updatedCard.getNumbInSet()!= null) ygo.setNumbInSet(updatedCard.getNumbInSet());
+        if(updatedCard.getPrice()!= 0) ygo.setPrice(updatedCard.getPrice());
+        ygoRepo.updateCard(ygo);
+        return  1;
     }
 }

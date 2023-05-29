@@ -1,8 +1,8 @@
 package pl.cardlibrary.CardLibrary.TCG;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -32,7 +32,22 @@ public class TCGController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable("id") int id){
-        return tcgRepo.delete(id);
+    public int deleteCard(@PathVariable("id") int id){
+        return tcgRepo.deleteCard(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
+        TCG tcg = tcgRepo.getID(id);
+        tcg.setNameTCG(updatedCard.getNameTCG());
+        tcgRepo.updateCard(tcg);
+        return  1;
+    }
+    @PutMapping("/update/{id}")
+    public int pariatllyCard(@PathVariable("id") int id, @RequestBody @NotNull TCG updatedCard){
+        TCG tcg = tcgRepo.getID(id);
+        if(updatedCard.getNameTCG()!=null) tcg.setNameTCG(updatedCard.getNameTCG());
+        tcgRepo.updateCard(tcg);
+        return  1;
     }
 }

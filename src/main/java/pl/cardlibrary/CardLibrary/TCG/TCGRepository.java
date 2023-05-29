@@ -1,10 +1,10 @@
 package pl.cardlibrary.CardLibrary.TCG;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.cardlibrary.CardLibrary.Pokemon.PkmnCard;
 
 import java.util.List;
 
@@ -25,13 +25,18 @@ public class TCGRepository {
     }
 
     public String saveCard(@org.jetbrains.annotations.NotNull List<TCG> Cards) {
-        Cards.forEach(TCG -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?)",
+        Cards.forEach(TCG -> jdbcTemplate.update("INSERT INTO TCG(nameTCG) VALUES(?);",
                 TCG.getNameTCG()));
         return "Saved";
     }
 
-    public int delete(int id){
-        jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?" ,id);
+    public int deleteCard(int id){
+        jdbcTemplate.update("DELETE FROM TCG WHERE idTCG=?;" ,id);
         return 1;
+    }
+
+    public int updateCard(@NotNull TCG tcg){
+        return jdbcTemplate.update("UPDATE TCG SET nameTCG=? WHERE idTCG=?;",
+                tcg.getNameTCG(),tcg.getIdTCG());
     }
 }

@@ -1,5 +1,6 @@
 package pl.cardlibrary.CardLibrary.OnePiece;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,14 +35,19 @@ public class OPRepository {
                 BeanPropertyRowMapper.newInstance(OPCard.class), setId);
     }
 
-    public String save(@org.jetbrains.annotations.NotNull List<OPCard> OPs) {
-        OPs.forEach(OP -> jdbcTemplate.update("INSERT INTO OnePiece(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+    public String saveCard(@org.jetbrains.annotations.NotNull List<OPCard> OPs) {
+        OPs.forEach(OP -> jdbcTemplate.update("INSERT INTO OnePiece(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?);",
                 OP.getName(),OP.getTyp(),OP.getSetId(),OP.getNumbInSet(),OP.getPrice()));
         return "Saved";
     }
 
-     public int delete(int id){
-         jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?" ,id);
+     public int deleteCard(int id){
+         jdbcTemplate.update("DELETE FROM OnePiece WHERE id=?;" ,id);
          return 1;
      }
+
+    public int updateCard(@NotNull OPCard op){
+        return jdbcTemplate.update("UPDATE OnePiece SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
+                op.getId(),op.getName(),op.getTyp(),op.getSetId(),op.getNumbInSet(),op.getPrice());
+    }
 }

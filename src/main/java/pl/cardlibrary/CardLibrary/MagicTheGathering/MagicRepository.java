@@ -1,5 +1,6 @@
 package pl.cardlibrary.CardLibrary.MagicTheGathering;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,12 +16,12 @@ public class MagicRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<MagicCard> getAll() {
-        return jdbcTemplate.query("SELECT * FROM CardLibrary.Magic; ",
+        return jdbcTemplate.query("SELECT * FROM Magic; ",
                 BeanPropertyRowMapper.newInstance(MagicCard.class));
     }
 
     public MagicCard getID(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM CardLibrary.Magic WHERE id=?;",
+        return jdbcTemplate.queryForObject("SELECT * FROM Magic WHERE id=?;",
                 BeanPropertyRowMapper.newInstance(MagicCard.class), id);
     }
 
@@ -35,13 +36,18 @@ public class MagicRepository {
     }
 
     public String saveCard(@org.jetbrains.annotations.NotNull List<MagicCard> Ms) {
-        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO CardLibrary.Magic(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+        Ms.forEach(Magic -> jdbcTemplate.update("INSERT INTO Magic(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?);",
                 Magic.getName(),Magic.getTyp(),Magic.getSetId(),Magic.getNumbInSet(),Magic.getPrice()));
         return "Saved";
     }
 
-    public int delete(int id){
-        jdbcTemplate.update("DELETE FROM Magic WHERE id=?" ,id);
+    public int deleteCard(int id){
+        jdbcTemplate.update("DELETE FROM Magic WHERE id=?;" ,id);
         return 1;
+    }
+
+    public int updateCard(@NotNull MagicCard m){
+        return jdbcTemplate.update("UPDATE Magic SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?;",
+                m.getId(),m.getName(),m.getTyp(),m.getSetId(),m.getNumbInSet(),m.getPrice());
     }
 }

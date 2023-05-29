@@ -1,5 +1,6 @@
 package pl.cardlibrary.CardLibrary.YuGiOh;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,14 +36,19 @@ public class YGORepository {
                 BeanPropertyRowMapper.newInstance(YGOCard.class));
     }
 
-    public String save(@org.jetbrains.annotations.NotNull List<YGOCard> YGOs) {
-        YGOs.forEach(YGO -> jdbcTemplate.update("INSERT INTO YuGiOh(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?)",
+    public String saveCard(@org.jetbrains.annotations.NotNull List<YGOCard> YGOs) {
+        YGOs.forEach(YGO -> jdbcTemplate.update("INSERT INTO YuGiOh(name,typ,setId,numbInSet,price) VALUES(?,?,?,?,?);",
                 YGO.getName(),YGO.getTyp(),YGO.getNumbInSet(),YGO.getPrice()));
         return "Saved";
     }
 
-    public int delete(int id){
-        jdbcTemplate.update("DELETE FROM YuGiOh WHERE id=?" ,id);
+    public int deleteCard(int id){
+        jdbcTemplate.update("DELETE FROM YuGiOh WHERE id=?;" ,id);
         return 1;
+    }
+
+    public int updateCard(@NotNull YGOCard ygo){
+        return jdbcTemplate.update("UPDATE YuGiOh SET name=?,typ=?,setId=?,numbInSet=?,price=? WHERE id=?",
+                ygo.getId(),ygo.getName(),ygo.getTyp(),ygo.getSetId(),ygo.getNumbInSet(),ygo.getPrice());
     }
 }

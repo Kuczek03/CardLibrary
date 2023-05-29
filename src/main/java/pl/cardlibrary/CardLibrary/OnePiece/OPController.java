@@ -1,11 +1,8 @@
 package pl.cardlibrary.CardLibrary.OnePiece;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController
@@ -39,12 +36,35 @@ public class OPController {
 
     @PostMapping("/save")
     public String saveCard(@RequestBody List<OPCard> OPs){
-        return opRepo.save(OPs);
+        return opRepo.saveCard(OPs);
     }
 
     @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable("id") int id){
-        return opRepo.delete(id);
+    public int deleteCard(@PathVariable("id") int id){
+        return opRepo.deleteCard(id);
     }
 
+    @PutMapping("/update/{id}")
+    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
+        OPCard op = opRepo.getID(id);
+        op.setName(updatedCard.getName());
+        op.setTyp(updatedCard.getTyp());
+        op.setSetId(updatedCard.getSetId());
+        op.setNumbInSet(updatedCard.getNumbInSet());
+        op.setPrice(updatedCard.getPrice());
+        opRepo.updateCard(op);
+        return  1;
+    }
+
+    @PatchMapping("/update/{id}")
+    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull OPCard updatedCard){
+        OPCard op = opRepo.getID(id);
+        if(updatedCard.getName()!= null) op.setName(updatedCard.getName());
+        if(updatedCard.getTyp()!= null) op.setTyp(updatedCard.getTyp());
+        if(updatedCard.getSetId()!= null) op.setSetId(updatedCard.getSetId());
+        if(updatedCard.getNumbInSet()!= null) op.setNumbInSet(updatedCard.getNumbInSet());
+        if(updatedCard.getPrice()!= 0) op.setPrice(updatedCard.getPrice());
+        opRepo.updateCard(op);
+        return  1;
+    }
 }

@@ -1,4 +1,5 @@
 package pl.cardlibrary.CardLibrary.Pokemon;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -39,7 +40,30 @@ public class PkmnCardController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable("id") int id){
-        return pkmnRepo.delete(id);
+    public int deleteCard(@PathVariable("id") int id){
+        return pkmnRepo.deleteCard(id);
+    }
+    @PutMapping("/update/{id}")
+    public int updateCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
+        PkmnCard pkmn = pkmnRepo.getID(id);
+        pkmn.setName(updatedCard.getName());
+        pkmn.setTyp(updatedCard.getTyp());
+        pkmn.setSetId(updatedCard.getSetId());
+        pkmn.setNumbInSet(updatedCard.getNumbInSet());
+        pkmn.setPrice(updatedCard.getPrice());
+        pkmnRepo.updateCard(pkmn);
+        return  1;
+    }
+
+    @PatchMapping("/update/{id}")
+    public int partiallyCard(@PathVariable("id") int id, @RequestBody @NotNull PkmnCard updatedCard){
+        PkmnCard pkmn = pkmnRepo.getID(id);
+        if(updatedCard.getName()!= null) pkmn.setName(updatedCard.getName());
+        if(updatedCard.getTyp()!= null) pkmn.setTyp(updatedCard.getTyp());
+        if(updatedCard.getSetId()!= null) pkmn.setSetId(updatedCard.getSetId());
+        if(updatedCard.getNumbInSet()!= null) pkmn.setNumbInSet(updatedCard.getNumbInSet());
+        if(updatedCard.getPrice()!= 0) pkmn.setPrice(updatedCard.getPrice());
+        pkmnRepo.updateCard(pkmn);
+        return  1;
     }
 }
